@@ -21,7 +21,8 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var products = _dbContext.Users.ToList();
-        return View();
+        Console.WriteLine(products);
+        return View(products);
     }
 
     public IActionResult Privacy()

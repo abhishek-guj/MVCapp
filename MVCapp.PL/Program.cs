@@ -11,7 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer("Server=localhost:51907;Database=LMS;User Id=sa;Password=Passw0rd123;MultipleActiveResultSets=True;TrustServerCertificate=True;"));
+    options.UseSqlServer(connectionString));
 
 
 

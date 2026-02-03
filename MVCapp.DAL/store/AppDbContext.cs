@@ -15,20 +15,6 @@ namespace MVCapp.DAL.Store
         {
         }
 
-        public static DbContextOptions<AppDbContext> GetOptions(IConfiguration configuration)
-        {
-            var connectionString = configuration.GetConnectionString("DefaultConnection")
-                ?? throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
-
-            return new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer(connectionString)
-                .Options;
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("");
-        }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
