@@ -8,8 +8,8 @@ dotnet new sln -n MVCappSolution
 
 dotnet sln add MVCapp.PL/MVCapp.PL.csproj
 
-dotnet add MVCapp.DAL/MVCapp.DAL.csproj reference MVCapp.BLL/MVCapp.BLL.csproj
-dotnet add MVCapp.BLL/MVCapp.BLL.csproj reference MVCapp.PL/MVCapp.PL.csproj
+dotnet add MVCapp.PL/MVCapp.PL.csproj reference MVCapp.BLL/MVCapp.BLL.csproj
+dotnet add MVCapp.BLL/MVCapp.BLL.csproj reference MVCapp.DAL/MVCapp.DAL.csproj
 
 dotnet restore
 dotnet build
@@ -22,3 +22,16 @@ dotnet add package Microsoft.EntityFrameworkCore --version 8.0.11
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer  --version 8.0.11 
 dotnet add package Microsoft.EntityFrameworkCore.Tools  --version 8.0.11 
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.11 
+
+cd MVCapp.PL
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.11 
+
+
+// ==================================================
+// run this after setting up AppDbContext
+cd <root-dir>
+dotnet tool install --global dotnet-ef 
+
+
+dotnet ef migrations add InitialCreate --project MVCapp.DAL --startup-project MVCapp.PL
+dotnet ef database update --project MVCapp.DAL --startup-project MVCapp.PL

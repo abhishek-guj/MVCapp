@@ -1,20 +1,26 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using MVCapp.DAL.Store;
 using MVCapp.PL.Models;
 
 namespace MVCapp.PL.Controllers;
 
+
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly AppDbContext _dbContext;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(AppDbContext dbContext, ILogger<HomeController> logger)
     {
         _logger = logger;
+        _dbContext = dbContext;
+
     }
 
     public IActionResult Index()
     {
+        var products = _dbContext.Users.ToList();
         return View();
     }
 

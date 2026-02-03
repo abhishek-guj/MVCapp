@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\MVCapp.PL\MVCapp.PL.csproj" />
+    <ProjectReference Include="..\MVCapp.DAL\MVCapp.DAL.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
