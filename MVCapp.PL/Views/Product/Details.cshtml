@@ -1,0 +1,22 @@
+@model MVCapp.BLL.Dtos.Res.ProductDto
+
+<h2>Product Details</h2>
+<p>
+    Id: @Model.Id
+</p>
+<p>
+    Name: @Model.Name
+</p>
+<p>
+    Category: @Model.Category
+</p>
+<p>
+    Quantity: @Model.Quantity
+</p>
+<p>
+    Price: @Model.Price
+</p>
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    | <a asp-action="Index">Back</a>
+</p>

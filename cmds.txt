@@ -36,5 +36,5 @@ cd <root-dir>
 dotnet tool install --global dotnet-ef 
 
 
-dotnet ef migrations add <mgration_name> --project MVCapp.DAL --startup-project MVCapp.PL
+dotnet ef migrations add addProduct --project MVCapp.DAL --startup-project MVCapp.PL
 dotnet ef database update --project MVCapp.DAL --startup-project MVCapp.PL

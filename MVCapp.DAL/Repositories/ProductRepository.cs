@@ -12,7 +12,7 @@ namespace MVCapp.DAL.Repositories
     public interface IProductRepository
     {
         Task<IEnumerable<Product>> GetAll();
-        Task<Product> GetById(int id);
+        Task<Product> GetById(Guid id);
         Task<Product> Add(Product product);
         Task<Product> Update(Product product);
         Task Delete(Guid id);
@@ -33,7 +33,7 @@ namespace MVCapp.DAL.Repositories
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetById(int id)
+        public async Task<Product> GetById(Guid id)
         {
             return await _context.Products.FindAsync(id);
         }

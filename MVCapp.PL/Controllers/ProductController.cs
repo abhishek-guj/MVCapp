@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MVCapp.BLL.Dtos.Req;
+using MVCapp.BLL.Services;
 
 namespace MVCapp.PL.Controllers
 {
@@ -12,22 +14,48 @@ namespace MVCapp.PL.Controllers
     public class ProductController : Controller
     {
         private readonly ILogger<ProductController> _logger;
+        private readonly IProductService _productService;
 
-        public ProductController(ILogger<ProductController> logger)
+        public ProductController(ILogger<ProductController> logger, IProductService productService)
         {
             _logger = logger;
+            _productService = productService;
         }
 
-        public IActionResult Index()
+        [HttpGet("")]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _productService.GetProductsAsync();
+
+            return View(products);
         }
 
-        [HttpGet("error")]
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet("details/{id}")]
+        public async Task<IActionResult> Details(Guid id)
         {
-            return View("Error!");
+            var product = await _productService.GetProductById(id);
+            if (product == null)
+                return NotFound();
+            return View(product);
+        }
+
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var product = await _productService.GetProductById(id);
+            if (product == null)
+                return NotFound();
+            return View(product);
+        }
+
+        [HttpPost("edit/{id}")]
+        public async Task<IActionResult> Edit(Guid id, ProductUpdateDto dto)
+        {
+            var product = await _productService.GetProductById(id);
+            if (product == null)
+                return NotFound();
+            await _productService.UpdateProduct(dto);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MVCapp.BLL.Dtos.Res.ProductDto>
+
+@{
+    ViewData["Title"] = "Product Page";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Category</td>
+                    <td>@product.Quantity</td>
+                    <td>@product.Price</td>
+                    @*  *@
+                    <td>
+                        <a asp-action="Details" asp-route-id="@product.Id">
+                            View
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@product.Id">
+                            Edit
+                        </a>
+                        <button asp-action="Delete" asp-route-id="@product.Id" method="post" type="Submit"
+                            onClick="return confirm('Are you sure?');">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+</table>

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCapp.BLL.Dtos.Res
+namespace MVCapp.PL.Models
 {
-    public class ProductDto
+    public class ProductViewModel
     {
 
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+
         public string Name { get; set; }
 
         public int Price { get; set; }
@@ -16,5 +17,6 @@ namespace MVCapp.BLL.Dtos.Res
         public int Quantity { get; set; }
 
         public string Category { get; set; }
+
     }
 }
