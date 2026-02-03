@@ -7,6 +7,8 @@ dotnet new mvc -n MVCapp.PL --framework net8.0
 dotnet new sln -n MVCappSolution
 
 dotnet sln add MVCapp.PL/MVCapp.PL.csproj
+dotnet sln add MVCapp.BLL/MVCapp.BLL.csproj
+dotnet sln add MVCapp.DAL/MVCapp.DAL.csproj
 
 dotnet add MVCapp.PL/MVCapp.PL.csproj reference MVCapp.BLL/MVCapp.BLL.csproj
 dotnet add MVCapp.BLL/MVCapp.BLL.csproj reference MVCapp.DAL/MVCapp.DAL.csproj
@@ -22,6 +24,7 @@ dotnet add package Microsoft.EntityFrameworkCore --version 8.0.11
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer  --version 8.0.11 
 dotnet add package Microsoft.EntityFrameworkCore.Tools  --version 8.0.11 
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.11 
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
 
 cd MVCapp.PL
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.11 

@@ -5,11 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using MVCapp.DAL.Enums;
 
-namespace MVCapp.DAL.Entities
+namespace MVCapp.BLL.Dtos.Res
 {
-    public class Product
+    public class ProductCreateDto
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Name is required....!")]
         public string Name { get; set; }
@@ -22,6 +21,5 @@ namespace MVCapp.DAL.Entities
 
         [Required(ErrorMessage = "Category is required....!")]
         public string Category { get; set; }
-
     }
 }

@@ -11,9 +11,11 @@ namespace MVCapp.DAL.Repositories
 
     public interface IProductRepository
     {
-        // Task<List<Product>> GetAllProductsAsync();
-        Task<bool> GetAllProductsAsync();
-        // Task AddProductAsync(Product product);
+        Task<IEnumerable<Product>> GetAll();
+        Task<Product> GetById(int id);
+        Task<Product> Add(Product product);
+        Task<Product> Update(Product product);
+        Task Delete(Guid id);
     }
 
 
@@ -26,12 +28,39 @@ namespace MVCapp.DAL.Repositories
             _context = context;
         }
 
-        public async Task<> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAll()
         {
-            return true;
-            // return await _context.Users.ToListAsync();
+            return await _context.Products.ToListAsync();
         }
-        // Task AddProductAsync(Product product);
 
+        public async Task<Product> GetById(int id)
+        {
+            return await _context.Products.FindAsync(id);
+        }
+
+        public async Task<Product> Add(Product product)
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+            return product;
+        }
+
+        public async Task<Product> Update(Product product)
+        {
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return product;
+
+        }
+
+        public async Task Delete(Guid id)
+        {
+            var pro = await _context.Products.FindAsync(id);
+            if (pro != null)
+            {
+                _context.Products.Remove(pro);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

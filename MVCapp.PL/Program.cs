@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using MVCapp.DAL.Store;
 using MVCapp.DAL.Repositories;
+using MVCapp.BLL.Services;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
 
 
 var app = builder.Build();
