@@ -1,0 +1,24 @@
+mkdir MVCapp
+cd MVCapp
+dotnet new classlib -n MVCapp.DAL --framework net8.0
+dotnet new classlib -n MVCapp.BLL --framework net8.0
+dotnet new mvc -n MVCapp.PL --framework net8.0
+
+dotnet new sln -n MVCappSolution
+
+dotnet sln add MVCapp.PL/MVCapp.PL.csproj
+
+dotnet add MVCapp.DAL/MVCapp.DAL.csproj reference MVCapp.BLL/MVCapp.BLL.csproj
+dotnet add MVCapp.BLL/MVCapp.BLL.csproj reference MVCapp.PL/MVCapp.PL.csproj
+
+dotnet restore
+dotnet build
+
+dotnet run --project MVCapp.PL
+
+
+cd MVCapp.DAL
+dotnet add package Microsoft.EntityFrameworkCore --version 8.0.11 
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer  --version 8.0.11 
+dotnet add package Microsoft.EntityFrameworkCore.Tools  --version 8.0.11 
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 8.0.11 
