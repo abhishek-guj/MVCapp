@@ -5,23 +5,23 @@
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
     <p>
-        <label>Name:</label><br />
-        <input asp-for="Name" /><br />
+        <label for="name">Name:</label><br />
+        <input id="name" asp-for=" Name" /><br />
         <span asp-validation-for="Name"></span>
     </p>
     <p>
-        <label>Category:</label><br />
-        <input asp-for="Category" /><br />
+        <label for="category">Category:</label><br />
+        <input id="category" asp-for="Category" /><br />
         <span asp-validation-for="Category"></span>
     </p>
     <p>
-        <label>Price:</label><br />
-        <input asp-for="Price" /><br />
+        <label for="price">Price:</label><br />
+        <input id="price" asp-for="Price" /><br />
         <span asp-validation-for="Price"></span>
     </p>
     <p>
-        <label>Quantity:</label><br />
-        <input asp-for="Quantity" /><br />
+        <label for="qty">Quantity:</label><br />
+        <input id="qty"" asp-for=" Quantity" /><br />
         <span asp-validation-for="Quantity"></span>
     </p>
     <button type="submit">Save</button>

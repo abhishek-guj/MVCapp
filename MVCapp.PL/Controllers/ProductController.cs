@@ -100,6 +100,7 @@ namespace MVCapp.PL.Controllers
         }
 
         [HttpGet("Filter")]
+        [ProductExceptionFilter]
         public IActionResult Filter()
         {
             throw new UnauthorizedAccessException("Access Denied.......!");
