@@ -14,7 +14,10 @@ namespace MVCapp.BLL.Services
     {
         Task<IEnumerable<ProductDto>> GetProductsAsync();
         Task<ProductDto> GetProductById(Guid id);
+        Task<ProductDto> CreateProduct(ProductCreateDto productDto);
         Task UpdateProduct(ProductUpdateDto productDto);
+        Task DeleteProduct(Guid id);
+        int GetTotalProducts();
     }
     public class ProductService : IProductService
     {
@@ -37,11 +40,24 @@ namespace MVCapp.BLL.Services
             var prod = await _productRepository.GetById(id);
             return _mapper.Map<ProductDto>(prod);
         }
-
+        public async Task<ProductDto> CreateProduct(ProductCreateDto productDto)
+        {
+            Product product = _mapper.Map<Product>(productDto);
+            return _mapper.Map<ProductDto>(await _productRepository.Add(product));
+        }
         public async Task UpdateProduct(ProductUpdateDto productDto)
         {
             Product product = _mapper.Map<Product>(productDto);
             await _productRepository.Update(product);
+        }
+        public async Task DeleteProduct(Guid id)
+        {
+            await _productRepository.Delete(id);
+        }
+
+        public int GetTotalProducts()
+        {
+            return _productRepository.GetTotalProducts();
         }
 
     }

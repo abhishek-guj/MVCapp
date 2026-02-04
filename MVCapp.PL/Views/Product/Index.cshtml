@@ -1,43 +1,24 @@
-﻿@model IEnumerable<MVCapp.BLL.Dtos.Res.ProductDto>
+﻿@model MVCapp.PL.Models.ProductViewModel
 
 @{
     ViewData["Title"] = "Product Page";
 }
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (var product in Model)
-            {
-                <tr>
-                    <td>@product.Id</td>
-                    <td>@product.Name</td>
-                    <td>@product.Category</td>
-                    <td>@product.Quantity</td>
-                    <td>@product.Price</td>
-                    @*  *@
-                    <td>
-                        <a asp-action="Details" asp-route-id="@product.Id">
-                            View
-                        </a>
-                        <a asp-action="Edit" asp-route-id="@product.Id">
-                            Edit
-                        </a>
-                        <button asp-action="Delete" asp-route-id="@product.Id" method="post" type="Submit"
-                            onClick="return confirm('Are you sure?');">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-            }
+<h1 class="h1">Total Products : @Model.TotalQty</h1>
+<br />
+<a class="btn btn-primary" asp-action="Create">Create</a>
+<br />
+<br />
+
+<div class="container gap-3">
+
+    @{
+        foreach (var product in Model.Products)
+        {
+            <div class="m-2">
+
+            @Html.Partial("_ProductCard", product)
+            </div>
         }
-</table>
+    }
+</div>

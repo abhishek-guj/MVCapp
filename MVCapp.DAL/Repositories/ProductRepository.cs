@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using MVCapp.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using MVCapp.DAL.Store;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace MVCapp.DAL.Repositories
 {
@@ -14,18 +16,24 @@ namespace MVCapp.DAL.Repositories
         Task<IEnumerable<Product>> GetAll();
         Task<Product> GetById(Guid id);
         Task<Product> Add(Product product);
-        Task<Product> Update(Product product);
+        // Task<Product> Update(Product product);
+        Task Update(Product product);
         Task Delete(Guid id);
+        int GetTotalProducts();
     }
 
 
     public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
+        private readonly IConfiguration _configuration;
+        public readonly string? _connectionString;
 
-        public ProductRepository(AppDbContext context)
+        public ProductRepository(AppDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
+            _connectionString = _configuration.GetConnectionString("DefaultConnection");
         }
 
         public async Task<IEnumerable<Product>> GetAll()
@@ -45,11 +53,18 @@ namespace MVCapp.DAL.Repositories
             return product;
         }
 
-        public async Task<Product> Update(Product product)
+        public async Task Update(Product product)
         {
-            _context.Entry(product).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return product;
+            // return product;
+            Product prod = await _context.Products.FindAsync(product.Id);
+            if (prod != null)
+            {
+                prod.Name = product.Name;
+                prod.Category = product.Category;
+                prod.Price = product.Price;
+                prod.Quantity = product.Quantity;
+                _context.SaveChanges();
+            }
 
         }
 
@@ -61,6 +76,13 @@ namespace MVCapp.DAL.Repositories
                 _context.Products.Remove(pro);
                 await _context.SaveChangesAsync();
             }
+        }
+        public int GetTotalProducts()
+        {
+            using SqlConnection connection = new(_connectionString);
+            using SqlCommand command = new("SELECT COUNT(*) FROM Products", connection);
+            connection.Open();
+            return (int)command.ExecuteScalar();
         }
     }
 }
